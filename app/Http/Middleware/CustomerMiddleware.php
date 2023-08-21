@@ -16,6 +16,10 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if (auth()->user() && auth()->user()->role === 'pelanggan') {
+            return $next($request);
+        }
+
+        return redirect()->route('view.login')->with('error', 'You do not have permission to access this page.');
     }
 }

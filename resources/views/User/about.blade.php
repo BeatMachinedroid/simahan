@@ -2,6 +2,7 @@
 
 @section('content')
    <!-- body -->
+   
 
       <!-- loader  -->
       {{-- <div class="loader_bg">
@@ -14,110 +15,9 @@
       <!-- end header inner -->
       <!-- end header -->
       <!-- banner -->
-      <section class="banner_main">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-8">
-                  <div class="text-bg">
-                     <h1> <span class="blodark"> Pusat Oleh - Oleh </span> SIMAHAN <br></h1>
-                     <p>Lampung Barat</p>
-                     <a class="read_more" href="#">Shop now</a>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="ban_img">
-                     {{-- <figure><img src="images/ban_img.png" alt="#"/></figure> --}}
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
+
       <!-- end banner -->
       <!-- six_box section -->
-      <div class="six_box">
-         <div class="container-fluid">
-            <div class="row">
-
-            </div>
-         </div>
-      </div>
-      <!-- end six_box section -->
-      <!-- project section -->
-      <div id="project" class="project">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>Category</h2>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-            <div class="product_main">
-
-                @foreach ($category as $item)
-                <div class="project_box ">
-                    <div class="dark_white_bg" ><a href="{{ 'product-search/'.encrypt($item->id) }}"><img src="{{ asset('storage/category/' . $item->gambar) }}"
-                        alt="{{ $item->name }}" style="width: 120px; height: 120px;"></a></div>
-                    <h3><a href="{{ 'product-search/'.encrypt($item->id) }}">{{ $item->name}}</a></h3>
-                 </div>
-                @endforeach
-                {{-- @foreach ($barang as $item)
-                <div class="project_box ">
-                    <div class="dark_white_bg" ><img src="{{ asset('storage/product/' . $item->gambar) }}"
-                        alt="{{ $item->name_barang }}" style="width: 120px; height: 120px;"></div>
-                    <h3>{{ $item->name_barang }} <span>Rp.{{ $item->harga }}</span></h3>
-                 </div>
-                @endforeach --}}
-
-            </div>
-            </div>
-         </div>
-      </div>
-      <div id="project" class="project">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>Featured Products</h2>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-            <div class="product_main">
-
-                {{-- @foreach ($barang as $item)
-                <div class="project_box ">
-                    <div class="dark_white_bg" ><a href="{{ 'product-detail/'.encrypt($item->id) }}"><img src="{{ asset('storage/product/' . $item->gambar) }}"
-                        alt="{{ $item->name_barang }}" style="width: 120px; height: 120px;"></a></div>
-                    <h3><a href="{{ 'product-detail/'.encrypt($item->id) }}">{{ $item->name_barang }}</a> <span>Rp.{{ $item->harga }}</span></h3>
-                 </div>
-                @endforeach --}}
-                @foreach ($barang as $item)
-                <div class="project_box ">
-                    <div class="dark_white_bg" ><a href="{{ 'product-detail/'.encrypt($item->id) }}"><img src="{{ asset('storage/product/' . $item->gambar) }}"
-                        alt="{{ $item->name_barang }}" style="width: 120px; height: 120px;"></a></div>
-                        <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="{{ 'product-detail/'.encrypt($item->id) }}">{{ $item->name_barang }}</a>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>Rp. {{ $item->harga }}</h5><h6 class="text-muted ml-2"></h5>
-                            </div>
-                            {{-- <div class="d-flex align-items-center justify-content-center mb-1">
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                                <small>(99)</small>
-                            </div> --}}
-                        </div>
-                 </div>
-                @endforeach
-
-            </div>
-            </div>
-         </div>
-      </div>
       <div class="blue_bg">
         <div class="container">
            <div class="row">

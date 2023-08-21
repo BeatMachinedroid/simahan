@@ -23,7 +23,7 @@ class BarangController extends Controller
         $request->validate([
             'name' => 'required',
             'category' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:20480',
             'price' => 'required|numeric',
             'stock' => 'required',
             'deskripsi' => 'required',
@@ -45,9 +45,41 @@ class BarangController extends Controller
         $barang->deskripsi = $request->deskripsi;
         $barang->save();
 
-        return redirect()->route('view.menu')->with('message','Data created is successfully');
+        return redirect()->route('barang')->with('message','Data created is successfully');
+    }
 
+    public function edit(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:20480',
+            'price' => 'required|numeric',
+            'stock' => 'required',
+            'deskripsi' => 'required',
+        ]);
 
+        if($request->has('image')) {
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $originalName = $image->getClientOriginalName();
+            $image->storeAs('public/product/' , $originalName);
+        }
 
+        $barang = Barang::findOrFail($request->id);
+        $barang->name_barang = $request->name;
+        $barang->category = $request->category;
+        $barang->gambar = $originalName;
+        $barang->harga = $request->price;
+        $barang->stock = $request->stock;
+        $barang->deskripsi = $request->deskripsi;
+        $barang->save();
+
+        return redirect()->route('barang')->with('message','Data created is successfully');
+    }
+
+    public function delete($id){
+        $barang = Barang::findOrFail(decrypt($id));
+        $barang->delete();
+        return redirect()->route('barang')->with('message','Data deleted is successfully');
     }
 }

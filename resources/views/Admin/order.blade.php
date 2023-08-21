@@ -8,7 +8,7 @@
                     <div class="col-sm-12 mt-5">
                         <h3 class="page-title mt-3">Dashboard</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item active">List Barang</li>
+                            <li class="breadcrumb-item active">List Order</li>
                         </ul>
                     </div>
                 </div>
@@ -18,11 +18,11 @@
                     <div class="card card-table flex-fill">
                         <div class="card-header">
                             {{-- <h4 class="card-title float-left mt-2">Booking</h4> --}}
-                            <button type="button" class="btn btn-primary btn-addon" data-toggle="modal"
+                            {{-- <button type="button" class="btn btn-primary btn-addon" data-toggle="modal"
                                 data-target="#addModal">
                                 <i class="ti-plus"></i>
                                 Add Menu
-                            </button>
+                            </button> --}}
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -34,32 +34,27 @@
                                             </div>
                                         @endif
                                         <tr>
-                                            <th>No</th>
-                                            <th>Product</th>
-                                            <th>Category</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                            <th class="text-center">image</th>
+                                            <th>Order ID</th>
+                                            <th>Pelanggan</th>
+                                            <th>total</th>
+                                            <th>status</th>
+                                            <th>Tanggal</th>
+                                            {{-- <th class="text-center">image</th> --}}
                                             @if (Auth::user()->role == 'admin')
                                                 <th class="text-left">Action</th>
                                             @endif
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($barang as $no => $item)
+                                        @forelse ($order as $item)
                                             <tr>
                                                 <td class="text-nowrap">
-                                                    <div>{{ $no + 1 }}</div>
+                                                    <div>{{ $item->code_order }}</div>
                                                 </td>
-                                                <td class="text-nowrap">{{ $item->name_barang }}</td>
-                                                <td>{{ $item->stock }}</td>
-                                                <td >{{ $item->harga }}</td>
-                                                <td >{{ $item->stock }}</td>
-                                                <td class="text-center">
-                                                    <div><img src="{{ asset('storage/product/' . $item->gambar) }}"
-                                                            alt="{{ $item->name_barang }}" style="width: 120px; height: 120px;">
-                                                    </div>
-                                                </td>
+                                                <td class="text-nowrap">{{ $item->pelanggan->username }}</td>
+                                                <td >{{ $item->total }}</td>
+                                                <td >{{ $item->status }}</td>
+                                                <td >{{ $item->created_at }}</td>
                                                 @if (Auth::user()->role == 'admin')
                                                     <td class="text-left">
                                                         <button class="btn btn-primary btn-sm btn-addon" data-toggle="modal"
@@ -123,17 +118,7 @@
                                                         name="image">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <select class="form-control" name="category">
-                                                        <option>-- Category --</option>
-                                                        @foreach ($category as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" placeholder="Price"
@@ -167,7 +152,7 @@
         </div>
     </div>
 
-    @foreach ($barang as $item)
+    @foreach ($order as $item)
     <div class="modal fade bd-example-modal-lg" id="editmenu-{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -199,17 +184,6 @@
                                             <div class="form-group">
                                                 <input type="file" class="form-control" placeholder="Image"
                                                     name="image" value="{{ $item->gambar }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <select class="form-control" name="category">
-                                                    <option value="">-- Category --</option>
-                                                    @foreach ($category as $item2)
-                                                        <option value="{{ $item2->id }}">{{ $item2->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">

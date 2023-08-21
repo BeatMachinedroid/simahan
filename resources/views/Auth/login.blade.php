@@ -36,7 +36,7 @@
                                 {{ session()->get('message') }}
                             </div>
                         @endif
-                        <form action="{{ route('login') }}" method="POST" class="signin-form">
+                        <form action="{{ route('login') }}" method="post" class="signin-form">
                             @csrf
                             <div class="form-group">
                                 <input type="email" class="form-control" placeholder="Email" name="email"

@@ -8,7 +8,7 @@
                     <div class="col-sm-12 mt-5">
                         <h3 class="page-title mt-3">Dashboard</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item active">List Barang</li>
+                            <li class="breadcrumb-item active">List Customers</li>
                         </ul>
                     </div>
                 </div>
@@ -17,12 +17,12 @@
                 <div class="col-md-12 d-flex">
                     <div class="card card-table flex-fill">
                         <div class="card-header">
-                            {{-- <h4 class="card-title float-left mt-2">Booking</h4> --}}
-                            <button type="button" class="btn btn-primary btn-addon" data-toggle="modal"
+                            <h4 class="card-title float-left mt-2">Customers</h4>
+                            {{-- <button type="button" class="btn btn-primary btn-addon" data-toggle="modal"
                                 data-target="#addModal">
                                 <i class="ti-plus"></i>
-                                Add Menu
-                            </button>
+                                Add Customer
+                            </button> --}}
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -35,30 +35,28 @@
                                         @endif
                                         <tr>
                                             <th>No</th>
-                                            <th>Product</th>
-                                            <th>Category</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                            <th class="text-center">image</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>No Telp</th>
+                                            <th>Alamat</th>
+                                            <th>Created_at</th>
                                             @if (Auth::user()->role == 'admin')
                                                 <th class="text-left">Action</th>
                                             @endif
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($barang as $no => $item)
+                                        @forelse ($customer as $no => $item)
                                             <tr>
                                                 <td class="text-nowrap">
                                                     <div>{{ $no + 1 }}</div>
                                                 </td>
-                                                <td class="text-nowrap">{{ $item->name_barang }}</td>
-                                                <td>{{ $item->stock }}</td>
-                                                <td >{{ $item->harga }}</td>
-                                                <td >{{ $item->stock }}</td>
+                                                <td>{{ $item->username }}</td>
+                                                <td>{{ $item->email }}</td>
+                                                <td >{{ $item->no_telp }}</td>
+                                                <td >{{ $item->alamat }}</td>
                                                 <td class="text-center">
-                                                    <div><img src="{{ asset('storage/product/' . $item->gambar) }}"
-                                                            alt="{{ $item->name_barang }}" style="width: 120px; height: 120px;">
-                                                    </div>
+                                                    {{ $item->created_at }}
                                                 </td>
                                                 @if (Auth::user()->role == 'admin')
                                                     <td class="text-left">
@@ -67,7 +65,7 @@
                                                             <i class="ti-pencil"></i>
                                                             Edit
                                                         </button>
-                                                        <a href="{{ 'delete-barang/' . encrypt($item->id) }}"
+                                                        <a href="{{ 'delete-customer/' . encrypt($item->id) }}"
                                                             class="btn btn-danger btn-sm btn-addon"
                                                             onclick="return confirm('Are you sure ?')">
                                                             <i class="ti-trash"></i>
@@ -92,7 +90,7 @@
             </div>
         </div>
     @endsection
-    <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -165,15 +163,15 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    @foreach ($barang as $item)
+    @foreach ($customer as $item)
     <div class="modal fade bd-example-modal-lg" id="editmenu-{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Barang</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="ti-close"></i></span>
                 </button>
@@ -183,7 +181,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-form">
-                                <form method="post" action="{{ route('put.barang') }}"
+                                <form method="post" action="{{ route('put.customer') }}"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -192,43 +190,28 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input type="text" class="form-control"
-                                                    placeholder="Nama Product" name="name" value="{{ $item->name_barang }}">
+                                                    placeholder="Nama Product" name="name" value="{{ $item->username}}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <input type="file" class="form-control" placeholder="Image"
-                                                    name="image" value="{{ $item->gambar }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <select class="form-control" name="category">
-                                                    <option value="">-- Category --</option>
-                                                    @foreach ($category as $item2)
-                                                        <option value="{{ $item2->id }}">{{ $item2->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Price"
-                                                    name="price" value="{{ $item->harga }}">
+                                                    name="email" value="{{ $item->email }}">
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Stock"
-                                                    name="stock" value="{{ $item->stock }}">
+                                                    name="stock" value="{{ $item->no_telp }}">
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6">
                                             <div class="form-group">
-                                                <textarea name="deskripsi" class="form-control" id="" cols="30" rows="10" value="{{ $item->deskripsi }}"></textarea>
+                                                <input type="text" class="form-control" placeholder="Stock"
+                                                    name="stock" value="{{ $item->alamat }}">
                                             </div>
                                         </div>
+
                                         <div class="col-lg-12">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                             <button type="button" class="btn btn-danger"

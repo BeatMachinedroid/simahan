@@ -476,11 +476,15 @@ ul.right_icon li img {
 /** banner section **/
 
 .banner_main {
-     background: url(../images/banner.jpg);
+     background: url(/images/bg1.jpeg);
      padding: 97px 0px 0px 0px;
      background-size: 100% 100%;
      background-repeat: no-repeat;
      min-height: 698px;
+
+     background-color: rgba(255, 255, 255, 0.875);
+     background-blend-mode: overlay;
+     background-position: center;
 }
 
 .blodark {
