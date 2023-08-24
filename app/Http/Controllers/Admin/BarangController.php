@@ -13,7 +13,7 @@ class BarangController extends Controller
 {
     public function index(){
         if(Auth::check()){
-            $barang = Barang::paginate(5);
+            $barang = Barang::all();
             $category = Category::all();
             return view('Admin/barang' , compact('barang','category'));
         }
